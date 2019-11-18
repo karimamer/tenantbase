@@ -26,6 +26,14 @@ def coro(f):
     return update_wrapper(wrapper, f)
 
 
+@click.group()
+def entrypoint():
+    """
+    An entry poetry for the command line grouping
+    """
+    pass
+
+
 @click.command()
 @click.option("--key", prompt="Please enter your key")
 @click.option("--value", prompt="Please enter your value")
@@ -53,5 +61,9 @@ def delete_from_cache(key):
     return res_from_sql
 
 
+entrypoint.add_command(delete_from_cache)
+entrypoint.add_command(get_from_cache)
+entrypoint.add_command(set_cache)
+
 if __name__ == "__main__":
-    set_cache()
+    entrypoint()
