@@ -1,11 +1,12 @@
 import asyncio
 from functools import update_wrapper
+import logging
 
 import click
 import aiohttp
 
-from interfaces.memecache_interface import (
-    set_memecahce,
+from interfaces.memcache_interface import (
+    set_memcahce,
     get_from_memcahce,
     delete_from_memcahce,
 )
@@ -15,8 +16,15 @@ from interfaces.sql_interface import (
     insert_value_into_sql,
 )
 
+# Globals
+LOG = logging.getLogger()
+LOG.setLevel(logging.INFO)
+
 
 def coro(f):
+    """
+    a decerator to allow us to pass aysnc functions to click
+    """
     f = asyncio.coroutine(f)
 
     def wrapper(*args, **kwargs):
@@ -39,17 +47,24 @@ def entrypoint():
 @click.option("--value", prompt="Please enter your value")
 @coro
 def set_cache(key, value):
-    set_memecahce(key, value)
+    set_memcahce(key, value)
+    LOG.info(f"{key}{value} inserted in memchace")
     yield from insert_value_into_sql(key, value)
+    LOG.info(f"{key}{value} inserted in sqlite")
 
 
 @click.command()
 @click.option("--key", prompt="Please enter your key")
 @coro
 def get_from_cache(key):
-    get_from_memcahce(key)
-    res_from_sql = yield from get_value_from_sql(key)
-    return res_from_sql
+    cached_res = get_from_memcahce(key)
+    if cached_res:
+        print(cached_res)
+        return cached_res
+    else:
+        res_from_sql = yield from get_value_from_sql(key)
+        LOG.info(f"{key} found in sqlite")
+        return res_from_sql
 
 
 @click.command()
@@ -58,6 +73,7 @@ def get_from_cache(key):
 def delete_from_cache(key):
     delete_from_memcahce(key)
     res_from_sql = yield from delete_value_from_sql(key)
+    LOG.info(f"{key} deleted in memchace and sqlite")
     return res_from_sql
 
 
