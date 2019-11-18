@@ -4,7 +4,7 @@ import asyncio
 DB = "tbase_cache.db"
 
 
-async def get_value(k):
+async def get_value_from_sql(k):
     if k:
         given_key = (k,)
         async with aiosqlite.connect(DB) as db:
@@ -14,7 +14,7 @@ async def get_value(k):
             return rows
 
 
-async def delete_value(k):
+async def delete_value_from_sql(k):
     if k:
         given_key = (k,)
         async with aiosqlite.connect(DB) as db:
@@ -23,7 +23,7 @@ async def delete_value(k):
             await db.commit()
 
 
-async def insert_value(k, v):
+async def insert_value_into_sql(k, v):
     if k and v:
         given_key_value = (k, v)
 
