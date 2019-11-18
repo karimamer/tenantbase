@@ -5,16 +5,16 @@ PORT = 11211
 CLIENT = Client((HOST, PORT))
 
 
-def set_memecahce(key, value):
+def set_memcahce(key, value):
     CLIENT.set(key, value)
     return None
 
 
-def get_from_memcahce(k):
-    result = CLIENT.get(k)
+def get_from_memcahce(key):
+    result = CLIENT.get(key)
     return result
 
 
-def delete_from_memcahce(k):
-    CLIENT.delete(k)
+def delete_from_memcahce(key):
+    CLIENT.delete(key)
     return None
