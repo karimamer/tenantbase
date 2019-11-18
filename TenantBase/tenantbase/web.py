@@ -1,8 +1,8 @@
 import aiohttp
 from aiohttp import web
 import json
-from interfaces.memecache_interface import (
-    set_memecahce,
+from interfaces.memcache_interface import (
+    set_memcahce,
     get_from_memcahce,
     delete_from_memcahce,
 )
@@ -36,7 +36,7 @@ async def set_value(request):
         key = data["key"]
         value = data["value"]
         await insert_value_into_sql(key, value)
-        set_memecahce(key, value)
+        set_memcahce(key, value)
         return web.HTTPOk()
     except (KeyError, TypeError, ValueError) as e:
         raise web.HTTPBadRequest(text="You have not specified key and value") from e
