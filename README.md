@@ -116,6 +116,7 @@ Code Doc
  * value -> timestamp
 
 ### interfaces
+```
 * sql interface that contains 4 functions 
                                         | -> get_value_from_sql
                                         | -> delete_value_from_sql
@@ -125,19 +126,18 @@ Code Doc
                                         | -> set_memcahce
                                         | -> get_from_memcahce
                                         | -> delete_from_memcahce
+```
 ### web
+```
  contains web views
                     | -> health_check -> to check if the service is running 
                     | -> get_value -> get on value for a givien key
                     | -> set_value -> add key and value pair 
                     | -> delete_value - > delete from sql and memecahe
                     | -> get_values -> get all value in cache 
+```
 
-  web.get("/health-check", health_check),
-    web.get("/get-value", get_value),
-    web.post("/set-value", set_value),
-    web.delete("/delete-value", delete_value),
-    web.get("/get-values", get_values),
+
 URLS
 ================
 ### Create key value pair
