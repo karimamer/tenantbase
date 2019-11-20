@@ -42,3 +42,10 @@ async def insert_value_into_sql(key, value):
                 await db.commit()
     else:
         LOG.info(f"{key}{value} was not provided by user")
+
+
+async def get_all_values():
+    async with aiosqlite.connect(DB) as db:
+        cursor = await db.execute("select * from kvalue")
+        rows = await cursor.fetchall()
+        return rows
