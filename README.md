@@ -157,6 +157,7 @@ url query param -> word
 
 # how to scale 
 ====================
+
 to scale we will need to answer some questions firt ?
 * Does the database of choice support fast key access ?
 * is the database able to handle the amount of data we plan to store ?
