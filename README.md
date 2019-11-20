@@ -105,7 +105,7 @@ Installation
 * python run main to run cmd
 * run python web.py to run webserver 
 
-Code Doc
+Code Documentation
 ================
 
 
