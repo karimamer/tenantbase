@@ -154,7 +154,10 @@ Delete http://127.0.0.1:8000/delete-value
 ### get all key and values 
 GET  http://127.0.0.1:8000/get-values
 
-
+# how to run
+==============
+python main.py     
+python web.py to run the web interface
 # how to scale 
 ====================
 
