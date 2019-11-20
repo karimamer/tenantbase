@@ -1,6 +1,9 @@
+import json
+
 import aiohttp
 from aiohttp import web
-import json
+import aiohttp_cors
+
 from interfaces.memcache_interface import (
     set_memcahce,
     get_from_memcahce,
@@ -10,6 +13,7 @@ from interfaces.sql_interface import (
     get_value_from_sql,
     delete_value_from_sql,
     insert_value_into_sql,
+    get_all_values,
 )
 
 
@@ -52,14 +56,39 @@ async def delete_value(request):
         raise web.HTTPBadRequest(text="You have not specified value") from e
 
 
+async def get_values(request):
+    values = await get_all_values()
+    data = {
+        "value": [{"id": id, "key": key, "value": value} for id, key, value in values]
+    }
+    return web.json_response(data)
+
+
 routes_list = [
     web.get("/health-check", health_check),
     web.get("/get-value", get_value),
     web.post("/set-value", set_value),
     web.delete("/delete-value", delete_value),
+    web.get("/get-values", get_values),
 ]
 
 app = web.Application()
 
 app.add_routes(routes_list)
+
+
+# Configure default CORS settings.
+cors = aiohttp_cors.setup(
+    app,
+    defaults={
+        "*": aiohttp_cors.ResourceOptions(
+            allow_credentials=True, expose_headers="*", allow_headers="*",
+        )
+    },
+)
+
+# Configure CORS on all routes.
+for route in list(app.router.routes()):
+    cors.add(route)
+
 web.run_app(app)
