@@ -10,6 +10,7 @@ aiosqlite = "^0.10.0"
 pymemcache = "^2.2"
 click = "^7.0"
 aiohttp = "^3.6"
+aiohttp_cors = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
