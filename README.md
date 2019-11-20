@@ -148,12 +148,12 @@ Body ex -> {"key":"code", "value":"test}
 GET http://127.0.0.1:8000/get-value
 Body ex -> {"key":"code"}
 
-### GET number of anagrams
-GET http://127.0.0.1:8000/delete-value
+### delete value
+Delete http://127.0.0.1:8000/delete-value
 
-### GET Aangarms
+### get all key and values 
 GET  http://127.0.0.1:8000/get-values
-url query param -> word
+
 
 # how to scale 
 ====================
