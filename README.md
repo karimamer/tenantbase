@@ -164,13 +164,15 @@ to scale we will need to answer some questions firt ?
 * how many read and writes we are planning to do on a single node ?
 * how do we expand the cluster given expected growth ?
 * what is the maintaince process ?
+
 After answering these questions we will be able to choose the right database for our needs 
+
 I choose aiohttp since it can scale to a million requests easily
-we will need to use a better logging tool like sentry
+we will need to use a better logging tool like sentry 
+we will need of course to add it our CI//CD
 
 Things I could have done better
 ================================
 * better project planning 
 * url name scheme may feel inconsistent
 * add tests
-
